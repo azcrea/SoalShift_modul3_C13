@@ -161,18 +161,9 @@ void* input(){
     }
 }
 
-int main(int argc, char const *argv[]) {
-
-    mem = shmget(key,sizeof(int),IPC_CREAT|0666);
-    value = shmat(mem,NULL,0);
-    pthread_t t[4];
-    pthread_create(&t[0],NULL,input,NULL);
-    pthread_create(&t[1],NULL,starv,NULL);
-    pthread_create(&t[2],NULL,regen,NULL);
-    pthread_create(&t[3],NULL,hygine,NULL);
-    while(hung>0&&hyg>0&&hp>0&&!stop)
-    {
-        // while(where!=Stand_by);
+void* tampilan()
+{
+    while(1){
         if(where==Stand_by){
             printf("Standby Mode\n");
             printf("Health : %d\n",hp);
@@ -187,7 +178,6 @@ int main(int argc, char const *argv[]) {
             system("clear");
         }
         if(where==battle){
-            if(turn==1){hp-=ATT;turn = 0;}
             printf("Battle Mode\n");
             printf("Monster's Health : %d\n",hp);
             printf("Opponent's Health : %d\n",opponent);    
@@ -195,6 +185,7 @@ int main(int argc, char const *argv[]) {
             printf("1. Attack\n2. Run\n");
             sleep(1);
             system("clear");
+            if(turn==1){hp-=ATT;turn = 0;}
         }
         if(where == shop){
             printf("Shop Mode\n");
@@ -206,7 +197,21 @@ int main(int argc, char const *argv[]) {
             system("clear");
         }
     }
+}
+
+int main(int argc, char const *argv[]) {
+
+    mem = shmget(key,sizeof(int),IPC_CREAT|0666);
+    value = shmat(mem,NULL,0);
+    pthread_t t[5];
+    pthread_create(&t[0],NULL,input,NULL);
+    pthread_create(&t[1],NULL,tampilan,NULL);
+    pthread_create(&t[2],NULL,starv,NULL);
+    pthread_create(&t[3],NULL,regen,NULL);
+    pthread_create(&t[4],NULL,hygine,NULL);
+    while(hung>0&&hyg>0&&hp>0&&!stop);
     pthread_cancel(t[0]);
     tcsetattr(0, TCSANOW, &old);
+    printf("game has ended\n");
     return 0;
 }
