@@ -9,7 +9,7 @@
 #include <unistd.h>
 #define PORT 8080
 
-int status=0;
+int status=1;
 int *value;
 
 void* stok()
@@ -42,7 +42,7 @@ void* jualan(void* arg)
         }
         memset(buffer,0,sizeof(buffer));
     }
-    status--;
+    status=1;
 }
 
 int main(int argc, char const *argv[]) {
@@ -84,11 +84,9 @@ int main(int argc, char const *argv[]) {
     pthread_t t;
     pthread_create(&t,NULL,stok,NULL);
     while((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen))){
-        status++;
-        if(status>1){
+        if(!status){
             send(new_socket , gagal , strlen(gagal) , 0 );
             close(new_socket);
-            status--;
         }
         else{
             int valread = read( new_socket , buffer, 1024);
@@ -99,6 +97,7 @@ int main(int argc, char const *argv[]) {
             *sekarang = new_socket;
             pthread_t tid;
             pthread_create(&tid,NULL,jualan,sekarang);
+            status=0;
         }
     }
 
