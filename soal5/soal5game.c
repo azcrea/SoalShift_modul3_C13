@@ -133,7 +133,7 @@ void* input(){
         }
         else if(where == battle){
             if(a=='1'){
-                if(turn==0&&opponent>=20){opponent-=ATT;turn = 1;}
+                if(turn==0&&opponent>=20){opponent-=ATT;sleep(1);turn = 1;}
                 else printf("Your monster has already won\n");
             }
             if(a=='2'){
@@ -185,7 +185,7 @@ void* tampilan()
             printf("1. Attack\n2. Run\n");
             sleep(1);
             system("clear");
-            if(turn==1){hp-=ATT;turn = 0;}
+            if(turn==1 && opponent>0){hp-=ATT;turn = 0;}
         }
         if(where == shop){
             printf("Shop Mode\n");
