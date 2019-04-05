@@ -207,7 +207,7 @@ Buat program game yang menjalankan logika game, dan program shop yang menjalanka
     - Minta nama monster kepada user.
     - Buat thread untuk display.
     - Buat thread untuk regen (health).
-    - Buat thread untuk metabolism (hygine dan hunger).
+    - Buat thread untuk metabolism (hygiene dan hunger).
     - Ubah input menjadi tanpa buffer.
     - Buat thread untuk meng-handle aksi user.
 - shop
