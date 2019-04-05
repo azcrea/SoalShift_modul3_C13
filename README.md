@@ -43,7 +43,7 @@ Pada suatu hari ada orang yang ingin berjualan 1 jenis barang secara private, di
 ### Jawab :
 Buat program server pembeli, server penjual, client pembeli, dan client penjual sesuai kriteria yang diminta soal.
 
-[Source Codes](/soal2/)
+[Source Code](/soal2/)
 
 ### Langkah :
 
